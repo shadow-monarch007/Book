@@ -2379,6 +2379,250 @@
                 height: 40px;
             }
         }
+    
+        /* ── Floating Controls Dock on Right Edge ── */
+        .floating-controls-dock {
+            position: fixed;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            z-index: 1010;
+            align-items: center;
+        }
+
+        .dock-btn {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background-color: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            color: var(--color-ink);
+            box-shadow: var(--glass-shadow);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .dock-btn:hover {
+            background-color: var(--color-accent-light);
+            border-color: var(--color-accent);
+            color: var(--color-accent);
+            transform: scale(1.08);
+        }
+
+        /* ── Music Drawer & Embedded Player Styles ── */
+        .music-visualizer-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 0.5rem 0 1.2rem;
+            gap: 1rem;
+            border-bottom: 1px solid var(--color-rule);
+            margin-bottom: 1.5rem;
+            width: 100%;
+        }
+
+        /* Premium Custom Audio Player Card */
+        .custom-player-card {
+            width: 100%;
+            background-color: var(--input-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 14px;
+            padding: 1.1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.9rem;
+            box-shadow: var(--glass-shadow);
+            box-sizing: border-box;
+        }
+
+        .player-upper {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            width: 100%;
+        }
+
+        .player-play-btn {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background-color: var(--color-accent);
+            border: none;
+            color: var(--bg-page);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(var(--accent-rgb), 0.25);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            flex-shrink: 0;
+            padding: 0;
+            outline: none;
+        }
+
+        .player-play-btn:hover {
+            transform: scale(1.06);
+            box-shadow: 0 6px 16px rgba(var(--accent-rgb), 0.35);
+        }
+
+        .player-meta {
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+            overflow: hidden;
+            width: calc(100% - 64px);
+        }
+
+        .player-meta h4 {
+            font-family: var(--font-serif-garamond);
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--color-ink);
+            margin-bottom: 2px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .player-meta span {
+            font-family: var(--font-sans-inter);
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--color-ink-muted);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .player-progress-container {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+            width: 100%;
+        }
+
+        /* Premium slider progress bar */
+        .player-progress-bar {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 100%;
+            height: 5px;
+            border-radius: 3px;
+            background: var(--color-rule);
+            outline: none;
+            cursor: pointer;
+            margin: 0;
+            transition: background 0.3s ease;
+        }
+
+        .player-progress-bar::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 13px;
+            height: 13px;
+            border-radius: 50%;
+            background: var(--color-accent);
+            cursor: pointer;
+            transition: transform 0.15s ease;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+        }
+
+        .player-progress-bar::-webkit-slider-thumb:hover {
+            transform: scale(1.25);
+        }
+
+        .player-time-display {
+            display: flex;
+            justify-content: space-between;
+            font-family: var(--font-sans-inter);
+            font-size: 0.65rem;
+            color: var(--color-ink-muted);
+        }
+
+        .music-playlist-list {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            max-height: 350px;
+            overflow-y: auto;
+            padding-right: 4px;
+        }
+
+        .playlist-track-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 12px;
+            border-radius: 6px;
+            background-color: transparent;
+            border: 1px solid transparent;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .playlist-track-item:hover {
+            background-color: var(--color-accent-light);
+            border-color: var(--glass-border);
+        }
+
+        .playlist-track-item.active {
+            background-color: var(--color-accent-light);
+            border-color: var(--color-accent);
+        }
+
+        .track-item-left {
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+            max-width: 85%;
+        }
+
+        .track-item-title {
+            font-family: var(--font-serif-garamond);
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: var(--color-ink);
+        }
+
+        .track-item-artist {
+            font-family: var(--font-sans-inter);
+            font-size: 0.62rem;
+            color: var(--color-ink-muted);
+        }
+
+        .track-item-arc {
+            font-family: var(--font-sans-inter);
+            font-size: 0.58rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--color-accent);
+            opacity: 0.7;
+        }
+
+        /* Prevent header from sliding away / always visible */
+        .reader-header {
+            transform: translateY(0) !important;
+        }
+
+        @media (max-width: 600px) {
+            .floating-controls-dock {
+                right: 10px;
+                gap: 0.5rem;
+            }
+            .dock-btn {
+                width: 40px;
+                height: 40px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -2538,12 +2782,29 @@
 </div>
 <div class="settings-content">
 <div class="music-visualizer-container">
-<div class="music-iframe-container" style="height: 80px;">
-<iframe allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" allowfullscreen="" frameborder="0" height="80" id="spotify-player" loading="lazy" src="" width="100%"></iframe>
-</div>
-<div class="music-meta">
+<!-- Hidden HTML5 Audio Element -->
+<audio id="local-audio-player" preload="auto"></audio>
+<!-- Custom Player Card UI -->
+<div class="custom-player-card">
+<div class="player-upper">
+<button aria-label="Play/Pause" class="player-play-btn" id="player-play-btn">
+<!-- Play Icon -->
+<svg id="play-icon" style="width:24px;height:24px;" viewbox="0 0 24 24"><path d="M8 5v14l11-7z" fill="currentColor"></path></svg>
+<!-- Pause Icon (hidden by default) -->
+<svg id="pause-icon" style="width:24px;height:24px;display:none;" viewbox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" fill="currentColor"></path></svg>
+</button>
+<div class="player-meta">
 <h4 id="drawer-track-title">Falling Like the Stars</h4>
 <span id="drawer-track-artist">James Arthur</span>
+</div>
+</div>
+<div class="player-progress-container">
+<input class="player-progress-bar" id="player-progress-bar" max="100" min="0" type="range" value="0"/>
+<div class="player-time-display">
+<span id="player-current-time">00:00</span>
+<span id="player-duration">00:00</span>
+</div>
+</div>
 </div>
 </div>
 <div class="settings-section">
@@ -3736,7 +3997,15 @@
     const drawerTrackTitle = document.getElementById('drawer-track-title');
     const drawerTrackArtist = document.getElementById('drawer-track-artist');
     const musicPlaylistList = document.getElementById('music-playlist-list');
-    const spotifyPlayerIframe = document.getElementById('spotify-player');
+    
+    // Premium Custom Audio Player DOM References
+    const audioPlayer = document.getElementById('local-audio-player');
+    const playBtn = document.getElementById('player-play-btn');
+    const playIcon = document.getElementById('play-icon');
+    const pauseIcon = document.getElementById('pause-icon');
+    const progressBar = document.getElementById('player-progress-bar');
+    const currentTimeDisplay = document.getElementById('player-current-time');
+    const durationDisplay = document.getElementById('player-duration');
 
     // State
     let currentSettings = {
@@ -3985,20 +4254,20 @@
         closeMusic();
     });
 
-    // ── Music Soundtrack Setup (12 Arcs - Fully Verified Spotify Track IDs) ──
+    // ── Music Soundtrack Setup (12 Arcs - High-Fidelity Local Audio) ──
     const arcTracks = {
-        1: { name: "Falling Like the Stars", artist: "James Arthur", spotifyId: "15xWRPHQMeqgdkGzInx3PY" },
-        2: { name: "Someone To Stay", artist: "Vancouver Sleep Clinic", spotifyId: "1OeHqb93AvIQMUA3EYmX6c" },
-        3: { name: "Mess Is Mine", artist: "Vance Joy", spotifyId: "2HBCuz9fxnOsYYzdx7u8K4" },
-        4: { name: "Skinny Love", artist: "Bon Iver", spotifyId: "41y0a6V1n3J4qJ66eG35bM" },
-        5: { name: "Cherry Wine", artist: "Hozier", spotifyId: "2IT0Cr2Q1lC4u3aN435m10" },
-        6: { name: "Re: Stacks", artist: "Bon Iver", spotifyId: "5i1FGYuipyMLCaYTbrpl5I" },
-        7: { name: "To Build a Home", artist: "The Cinematic Orchestra", spotifyId: "34IEOHpeqZ842iB788oK02" },
-        8: { name: "Sweet Creature", artist: "Harry Styles", spotifyId: "5kRPPEWFJIMox5qIkQkiz5" },
-        9: { name: "Rivers and Roads", artist: "The Head and the Heart", spotifyId: "4nbhJrsjUQ3QAOypDKnRQD" },
-        10: { name: "Transatlanticism", artist: "Death Cab for Cutie", spotifyId: "6rqhFgbbKwnb9MLmUQDhG6" },
-        11: { name: "Bloom", artist: "The Paper Kites", spotifyId: "44alNkXsYnTyPnkMdohBcx" },
-        12: { name: "Saturn", artist: "Sleeping At Last", spotifyId: "582mZzQvX3sZc3mOq2i60X" }
+        1: { name: "Falling Like the Stars", artist: "James Arthur", path: "music/track1.m4a" },
+        2: { name: "Someone To Stay", artist: "Vancouver Sleep Clinic", path: "music/track2.m4a" },
+        3: { name: "Mess Is Mine", artist: "Vance Joy", path: "music/track3.m4a" },
+        4: { name: "Skinny Love", artist: "Bon Iver", path: "music/track4.m4a" },
+        5: { name: "Cherry Wine", artist: "Hozier", path: "music/track5.m4a" },
+        6: { name: "Re: Stacks", artist: "Bon Iver", path: "music/track6.m4a" },
+        7: { name: "To Build a Home", artist: "The Cinematic Orchestra", path: "music/track7.m4a" },
+        8: { name: "Sweet Creature", artist: "Harry Styles", path: "music/track8.m4a" },
+        9: { name: "Rivers and Roads", artist: "The Head and the Heart", path: "music/track9.m4a" },
+        10: { name: "Transatlanticism", artist: "Death Cab for Cutie", path: "music/track10.m4a" },
+        11: { name: "Bloom", artist: "The Paper Kites", path: "music/track11.m4a" },
+        12: { name: "Saturn", artist: "Sleeping At Last", path: "music/track12.m4a" }
     };
 
     function getArcForChapter(chapterTitle) {
@@ -4042,7 +4311,70 @@
         });
     });
 
+    // ── Premium Native Audio Controller Logic ──
+    const formatTime = (seconds) => {
+        if (isNaN(seconds)) return "00:00";
+        const mins = Math.floor(seconds / 60);
+        const secs = Math.floor(seconds % 60);
+        return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+    };
+
+    const updatePlayState = () => {
+        if (audioPlayer.paused) {
+            playIcon.style.display = 'block';
+            pauseIcon.style.display = 'none';
+        } else {
+            playIcon.style.display = 'none';
+            pauseIcon.style.display = 'block';
+        }
+    };
+
+    // Play/Pause Button Trigger
+    playBtn.addEventListener('click', () => {
+        if (audioPlayer.paused) {
+            audioPlayer.play().then(updatePlayState).catch(err => {
+                console.log("Audio playback blocked by autoplay policy: ", err);
+            });
+        } else {
+            audioPlayer.pause();
+            updatePlayState();
+        }
+    });
+
+    // Progress Bar Track Sync
+    audioPlayer.addEventListener('timeupdate', () => {
+        if (!isNaN(audioPlayer.duration)) {
+            const progress = (audioPlayer.currentTime / audioPlayer.duration) * 100;
+            progressBar.value = progress;
+            currentTimeDisplay.textContent = formatTime(audioPlayer.currentTime);
+        }
+    });
+
+    // Duration Display Sync
+    audioPlayer.addEventListener('loadedmetadata', () => {
+        durationDisplay.textContent = formatTime(audioPlayer.duration);
+        progressBar.value = 0;
+        currentTimeDisplay.textContent = "00:00";
+    });
+
+    // Drag / Seek Audio Progress
+    progressBar.addEventListener('input', () => {
+        if (!isNaN(audioPlayer.duration)) {
+            const newTime = (progressBar.value / 100) * audioPlayer.duration;
+            audioPlayer.currentTime = newTime;
+            currentTimeDisplay.textContent = formatTime(newTime);
+        }
+    });
+
+    // Automatically transition to next track on end
+    audioPlayer.addEventListener('ended', () => {
+        let nextArc = currentArc + 1;
+        if (nextArc > 12) nextArc = 1; // Loop back to Arc 1
+        loadTrack(nextArc, true);
+    });
+
     const loadTrack = (arcKey, autoPlay = false) => {
+        const isSameArc = (currentArc === arcKey);
         currentArc = arcKey;
         const track = arcTracks[arcKey];
         
@@ -4050,7 +4382,26 @@
         drawerTrackArtist.textContent = track.artist;
         updateActiveTrackHighlight(arcKey);
 
-        spotifyPlayerIframe.src = `https://open.spotify.com/embed/track/${track.spotifyId}?utm_source=generator&theme=0`;
+        if (!isSameArc || audioPlayer.src === "") {
+            const wasPlaying = !audioPlayer.paused;
+            audioPlayer.src = track.path;
+            audioPlayer.load();
+
+            if (autoPlay || wasPlaying) {
+                audioPlayer.play().then(updatePlayState).catch(err => {
+                    console.log("Autoplay blocked: ", err);
+                    updatePlayState();
+                });
+            } else {
+                updatePlayState();
+            }
+        } else {
+            if (autoPlay && audioPlayer.paused) {
+                audioPlayer.play().then(updatePlayState).catch(err => {
+                    console.log("Play failed: ", err);
+                });
+            }
+        }
     };
 
     const updateActiveTrackHighlight = (arcKey) => {
