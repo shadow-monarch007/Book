@@ -2217,6 +2217,168 @@
                 height: 40px;
             }
         }
+    
+        /* ── Floating Controls Dock on Right Edge ── */
+        .floating-controls-dock {
+            position: fixed;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            z-index: 1010;
+            align-items: center;
+        }
+
+        .dock-btn {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background-color: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            color: var(--color-ink);
+            box-shadow: var(--glass-shadow);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .dock-btn:hover {
+            background-color: var(--color-accent-light);
+            border-color: var(--color-accent);
+            color: var(--color-accent);
+            transform: scale(1.08);
+        }
+
+        /* ── Music Drawer & Embedded Player Styles ── */
+        .music-visualizer-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 1rem 0;
+            gap: 1rem;
+            border-bottom: 1px solid var(--color-rule);
+            margin-bottom: 1.5rem;
+            width: 100%;
+        }
+
+        .music-iframe-container {
+            width: 100%;
+            height: 80px;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--glass-shadow);
+            background-color: #000;
+            margin-bottom: 0.5rem;
+        }
+
+        .music-iframe-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .music-meta {
+            text-align: center;
+        }
+
+        .music-meta h4 {
+            font-family: var(--font-serif-garamond);
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--color-ink);
+            margin-bottom: 2px;
+        }
+
+        .music-meta span {
+            font-family: var(--font-sans-inter);
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--color-ink-muted);
+        }
+
+        .music-playlist-list {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            max-height: 350px;
+            overflow-y: auto;
+            padding-right: 4px;
+        }
+
+        .playlist-track-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 12px;
+            border-radius: 6px;
+            background-color: transparent;
+            border: 1px solid transparent;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .playlist-track-item:hover {
+            background-color: var(--color-accent-light);
+            border-color: var(--glass-border);
+        }
+
+        .playlist-track-item.active {
+            background-color: var(--color-accent-light);
+            border-color: var(--color-accent);
+        }
+
+        .track-item-left {
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+            max-width: 85%;
+        }
+
+        .track-item-title {
+            font-family: var(--font-serif-garamond);
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: var(--color-ink);
+        }
+
+        .track-item-artist {
+            font-family: var(--font-sans-inter);
+            font-size: 0.62rem;
+            color: var(--color-ink-muted);
+        }
+
+        .track-item-arc {
+            font-family: var(--font-sans-inter);
+            font-size: 0.58rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--color-accent);
+            opacity: 0.7;
+        }
+
+        /* Prevent header from sliding away / always visible */
+        .reader-header {
+            transform: translateY(0) !important;
+        }
+
+        @media (max-width: 600px) {
+            .floating-controls-dock {
+                right: 10px;
+                gap: 0.5rem;
+            }
+            .dock-btn {
+                width: 40px;
+                height: 40px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -2376,8 +2538,8 @@
 </div>
 <div class="settings-content">
 <div class="music-visualizer-container">
-<div class="music-iframe-container">
-<iframe allow="autoplay; encrypted-media" allowfullscreen="" frameborder="0" id="yt-player" src="https://www.youtube.com/embed/h310J6p1GfQ?enablejsapi=1"></iframe>
+<div class="music-iframe-container" style="height: 80px;">
+<iframe allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" allowfullscreen="" frameborder="0" height="80" id="spotify-player" loading="lazy" src="" width="100%"></iframe>
 </div>
 <div class="music-meta">
 <h4 id="drawer-track-title">Falling Like the Stars</h4>
@@ -3574,7 +3736,7 @@
     const drawerTrackTitle = document.getElementById('drawer-track-title');
     const drawerTrackArtist = document.getElementById('drawer-track-artist');
     const musicPlaylistList = document.getElementById('music-playlist-list');
-    const ytPlayerIframe = document.getElementById('yt-player');
+    const spotifyPlayerIframe = document.getElementById('spotify-player');
 
     // State
     let currentSettings = {
@@ -3823,20 +3985,20 @@
         closeMusic();
     });
 
-    // ── Music Soundtrack Setup (12 Arcs - Fully Verified Glob-Available IDs) ──
+    // ── Music Soundtrack Setup (12 Arcs - Fully Verified Spotify Track IDs) ──
     const arcTracks = {
-        1: { name: "Falling Like the Stars", artist: "James Arthur", ytId: "h310J6p1GfQ" },
-        2: { name: "Someone To Stay", artist: "Vancouver Sleep Clinic", ytId: "fS8S7W2Bv4M" },
-        3: { name: "Mess Is Mine", artist: "Vance Joy", ytId: "1C816p-TpHQ" },
-        4: { name: "Skinny Love", artist: "Bon Iver", ytId: "ssdgFoHLAMs" },
-        5: { name: "Cherry Wine", artist: "Hozier", ytId: "SdSCqsCaDiY" },
-        6: { name: "Re: Stacks", artist: "Bon Iver", ytId: "PX3Q713U85g" },
-        7: { name: "To Build a Home", artist: "The Cinematic Orchestra", ytId: "QB0ordd2nOI" },
-        8: { name: "Sweet Creature", artist: "Harry Styles", ytId: "8-S078-4j-g" },
-        9: { name: "Rivers and Roads", artist: "The Head and the Heart", ytId: "e2J-0EtsCpo" },
-        10: { name: "Transatlanticism", artist: "Death Cab for Cutie", ytId: "qNqQC7R_Me4" },
-        11: { name: "Bloom", artist: "The Paper Kites", ytId: "8inJtTG_DuU" },
-        12: { name: "Saturn", artist: "Sleeping At Last", ytId: "dzNvk80XY9s" }
+        1: { name: "Falling Like the Stars", artist: "James Arthur", spotifyId: "15xWRPHQMeqgdkGzInx3PY" },
+        2: { name: "Someone To Stay", artist: "Vancouver Sleep Clinic", spotifyId: "1OeHqb93AvIQMUA3EYmX6c" },
+        3: { name: "Mess Is Mine", artist: "Vance Joy", spotifyId: "2HBCuz9fxnOsYYzdx7u8K4" },
+        4: { name: "Skinny Love", artist: "Bon Iver", spotifyId: "41y0a6V1n3J4qJ66eG35bM" },
+        5: { name: "Cherry Wine", artist: "Hozier", spotifyId: "2IT0Cr2Q1lC4u3aN435m10" },
+        6: { name: "Re: Stacks", artist: "Bon Iver", spotifyId: "5i1FGYuipyMLCaYTbrpl5I" },
+        7: { name: "To Build a Home", artist: "The Cinematic Orchestra", spotifyId: "34IEOHpeqZ842iB788oK02" },
+        8: { name: "Sweet Creature", artist: "Harry Styles", spotifyId: "5kRPPEWFJIMox5qIkQkiz5" },
+        9: { name: "Rivers and Roads", artist: "The Head and the Heart", spotifyId: "4nbhJrsjUQ3QAOypDKnRQD" },
+        10: { name: "Transatlanticism", artist: "Death Cab for Cutie", spotifyId: "6rqhFgbbKwnb9MLmUQDhG6" },
+        11: { name: "Bloom", artist: "The Paper Kites", spotifyId: "44alNkXsYnTyPnkMdohBcx" },
+        12: { name: "Saturn", artist: "Sleeping At Last", spotifyId: "582mZzQvX3sZc3mOq2i60X" }
     };
 
     function getArcForChapter(chapterTitle) {
@@ -3888,8 +4050,7 @@
         drawerTrackArtist.textContent = track.artist;
         updateActiveTrackHighlight(arcKey);
 
-        const autoplayParam = autoPlay ? "?autoplay=1" : "";
-        ytPlayerIframe.src = `https://www.youtube.com/embed/${track.ytId}${autoplayParam}`;
+        spotifyPlayerIframe.src = `https://open.spotify.com/embed/track/${track.spotifyId}?utm_source=generator&theme=0`;
     };
 
     const updateActiveTrackHighlight = (arcKey) => {
@@ -3908,7 +4069,7 @@
         const arc = getArcForChapter(chapterTitle);
         if (arc === currentArc) return;
         
-        loadTrack(arc, true); // Autoplay the new track as they scroll!
+        loadTrack(arc, true); // Update the track automatically as they scroll!
     };
 
     // ── 4. Smart Header and Reading Progress Sync ──
